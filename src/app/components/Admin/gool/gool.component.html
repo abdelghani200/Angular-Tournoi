@@ -1,0 +1,80 @@
+<mat-card class="w-100">
+    <mat-card-content>
+        <div class="d-flex justify-content-between align-items-center mb-56">
+            <h4> Gools List</h4>
+            <div [ngStyle]="{ 'margin-right': '30%' }"></div>
+            <mat-form-field [ngStyle]="{ 'width': '290px' }">
+                <input matInput placeholder="Search" [(ngModel)]="searchTerm" (input)="search()">
+            </mat-form-field>
+            <div [ngStyle]="{ 'margin-right': '30%' }"></div>
+            <h4> Add Gool</h4>
+        </div>
+
+        <div class="table-responsive" *ngIf="(dataSource$ | async) || searchTerm">
+            <table mat-table [dataSource]="dataSource$" class="text-nowrap w-100">
+
+                <ng-container matColumnDef="idBut">
+                    <th mat-header-cell *matHeaderCellDef> Gool Id </th>
+                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.idBut}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="match">
+                    <th mat-header-cell *matHeaderCellDef> Date Match </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{ element.match.dateMatch }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="equipe">
+                    <th mat-header-cell *matHeaderCellDef> Equipe </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.equipe.nomEquipe}}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="player">
+                    <th mat-header-cell *matHeaderCellDef> Player </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.player.nomUser}}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="numberOfGoal">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{ 'text-align': 'center' }"> Goals </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium" [ngStyle]="{ 'text-align': 'center' }">{{element.numberOfGoal}}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tournoi">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{ 'text-align': 'center' }"> Tournoi </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium" [ngStyle]="{ 'text-align': 'center' }">{{element.match.tournoi.nameTournoi}}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{ 'text-align': 'center' }"> Actions </th>
+                    <td mat-cell *matCellDef="let element" [ngStyle]="{ 'text-align': 'center' }">
+                        <button mat-icon-button matTooltip="Edit">
+                            <mat-icon aria-label="Edit">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Delete">
+                            <mat-icon aria-label="Delete">delete</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Increment Goals" (click)="incrementGoals(element.idBut, 1)">
+                            <mat-icon aria-label="Update Goals">add</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Decrement Goals" (click)="decrementGoals(element.idBut, 1)">
+                            <mat-icon aria-label="Update Goals">remove</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <div *ngIf="!(dataSource$ | async)?.length && !searchTerm" class="text-center">No data</div>
+    </mat-card-content>
+</mat-card>

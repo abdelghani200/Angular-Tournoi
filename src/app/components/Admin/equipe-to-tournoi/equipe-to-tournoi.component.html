@@ -1,0 +1,22 @@
+<mat-dialog-content>
+    <div class="search-container">
+        <label for="playerSearch">Search Equipe: </label>
+        <mat-form-field appearance="fill">
+            <mat-label>Select Equipes</mat-label>
+            <input matInput placeholder="Search equipes" [(ngModel)]="playerSearchText" (input)="filterPlayers()">
+        </mat-form-field>
+    </div>
+    <mat-form-field appearance="fill">
+        <mat-select [(ngModel)]="selectedEquipes" multiple>
+            <mat-option *ngFor="let equipe of equipesList" [value]="equipe.idEquipe">
+                {{ equipe.nomEquipe }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close color="warn">Close</button>
+    <button mat-button mat-dialog-close color="primary" [disabled]="selectedEquipes.length === 0"
+        (click)="onSubmit()">Submit</button>
+</mat-dialog-actions>
