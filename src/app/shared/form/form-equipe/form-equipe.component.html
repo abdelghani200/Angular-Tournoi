@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="mb-32">Equipe Form</h4>
+        <form [formGroup]="equipeForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Equipe Name</mat-label>
+                <input matInput formControlName="nomEquipe" type="text" placeholder="Entrer Name">
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type" placeholder="Select Type">
+                    <mat-option value="A1">A1</mat-option>
+                    <mat-option value="A2">A2</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-button class="btn btn-info fw-normal" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
