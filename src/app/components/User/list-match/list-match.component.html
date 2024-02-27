@@ -1,0 +1,10 @@
+<div class="container mx-auto">
+    <h2 class="text-2xl font-bold my-4">Liste des matchs</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let match of matches" class="bg-white shadow-md rounded-md p-4">
+            <h3 class="text-xl font-semibold">{{ match.team1 }} vs {{ match.team2 }}</h3>
+            <p>Date: {{ match.date }}</p>
+            <p>Stade: {{ match.stadium }}</p>
+        </div>
+    </div>
+</div>
