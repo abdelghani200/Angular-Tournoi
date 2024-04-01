@@ -16,7 +16,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ComponentsModule } from './components/components.module';
 import { MatCardModule } from '@angular/material/card';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TournoiFormComponent } from './shared/form/tournoi-form/tournoi-form.component';
 import { TournoiComponent } from './components/Admin/Tournoi/tournoi.component';
 import { StoreModule } from '@ngrx/store';
@@ -37,6 +37,22 @@ import { GoolEffects } from './store/effects/gool.effects';
 import { goolReducer } from './store/reducers/gool.reducer';
 import { MatchFormComponent } from './shared/form/match-form/match-form.component';
 import { FormEquipeComponent } from './shared/form/form-equipe/form-equipe.component';
+import { matchDtoReducer } from './store/reducers/matchDto.reducer';
+import { MatchDtoEffects } from './store/effects/maTour.effects';
+import { PlayerFormComponent } from './shared/form/player-form/player-form.component';
+import { equipeStatsReducer } from './store/reducers/statsEquipe.reducer';
+import { StatsEquipeEffects } from './store/effects/statsEquipe.effects';
+import { adminReducer } from './store/reducers/admins.reducer';
+import { AdminEffects } from './store/effects/admin.effects';
+import { statisticsReducer } from './store/reducers/statistiques.reducer';
+import { StatisticsEffects } from './store/effects/statistiques.effects';
+import { CommentaireEffects } from './store/effects/commentaire.effects';
+import { commentaireReducer } from './store/reducers/commentaire.reducer';
+import { PlayerToFifaReducer } from './store/reducers/playerToFifa.reducer';
+import { PlayerToFifaEffects } from './store/effects/playerToFifa.effects';
+import { GoalFormComponent } from './shared/form/goal-form/goal-form.component';
+import { AuthInterceptor } from './services/auth/Intercepteurs/AuthInterceptor';
+import { DialogContentComponent } from './shared/list/dialog-content/dialog-content.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +61,10 @@ import { FormEquipeComponent } from './shared/form/form-equipe/form-equipe.compo
     TournoiFormComponent,
     TournoiComponent,
     MatchFormComponent,
-    FormEquipeComponent
+    FormEquipeComponent,
+    PlayerFormComponent,
+    GoalFormComponent,
+    DialogContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +72,6 @@ import { FormEquipeComponent } from './shared/form/form-equipe/form-equipe.compo
     BrowserAnimationsModule,
     FeatherModule.pick(allIcons),
     DemoFlexyModule,
-    DashboardModule,
     ComponentsModule,
     FormsModule,
     MatCardModule,
@@ -68,11 +86,19 @@ import { FormEquipeComponent } from './shared/form/form-equipe/form-equipe.compo
       players: playerReducer,
       PlayerToEquipes: PlayerToEquipeReducer,
       equipeToTournoi: equipeToTournoiReducer,
-      gools: goolReducer
+      gools: goolReducer,
+      matours: matchDtoReducer,
+      stats: equipeStatsReducer,
+      admins: adminReducer,
+      statistics: statisticsReducer,
+      commentaires: commentaireReducer,
+      playerToFifa: PlayerToFifaReducer,
     }),
-    EffectsModule.forRoot([TournoisEffects, MatchEffects, EquipeEffects, PlayerEffects, PlayerToEquipeEffects, EquipeToTournoiEffects, GoolEffects])
+    EffectsModule.forRoot([TournoisEffects, MatchEffects, EquipeEffects, PlayerEffects, PlayerToEquipeEffects, EquipeToTournoiEffects, GoolEffects, MatchDtoEffects, StatsEquipeEffects, AdminEffects, StatisticsEffects, CommentaireEffects, PlayerToFifaEffects])
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,12 +19,20 @@ export class MatchService {
     return this.http.post<Match[]>(ApiUrls.Matchs_URL, match);
   }
 
+  addMatchFifa(match: Match): Observable<Match[]>{
+    return this.http.post<Match[]>(ApiUrls.MatchFifa_URL, match);
+  }
+
   updateMatch(match: Match): Observable<Match[]>{
-    return this.http.put<Match[]>(ApiUrls.Matchs_URL + `/${match.id}`, match);
+    return this.http.put<Match[]>(ApiUrls.Matchs_URL + `/${match.idMatch}`, match);
   }
 
   deleteMatch(id: number){
     return this.http.delete(ApiUrls.Matchs_URL + `/${id}`)
+  }
+
+  getMatchesByTournoiId(id: number){
+    return this.http.get(ApiUrls.Matchs_URL + `/${id}` + `/matches`)
   }
 
 }

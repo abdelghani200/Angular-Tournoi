@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Equipe } from 'src/app/models/Equipe';
+import { Stats } from 'src/app/models/Stats';
 import { ApiUrls } from 'src/app/shared/config/ApiUrls';
 
 @Injectable({
@@ -26,5 +27,10 @@ export class EquipeService {
   deleteEquipe(id: number){
     return this.http.delete(ApiUrls.Equipes_URL + `/${id}`)
   }
+
+  findAllWithMatchStats(): Observable<Stats[]>{
+    return this.http.get<Stats[]>(ApiUrls.StatsEquipe_URL);
+  }
+
 
 }

@@ -2,7 +2,10 @@
     <mat-card-content>
         <div class="d-flex justify-content-between align-items-center mb-56">
             <h4> Match List</h4>
-            <div class="ml-auto" style="margin-right: 80%;"></div>
+            <div class="ml-auto" style="margin-right: 80%;">
+                <button mat-button (click)="toggleFifaMatches()">Show Fifa
+                    Matches</button>
+            </div>
             <button mat-button [ngStyle]="{'font-weight': 'bold'}" (click)="openMatchFormDialog()">Add Match</button>
         </div>
         <div class="table-responsive">
@@ -27,16 +30,34 @@
                 </ng-container>
 
                 <ng-container matColumnDef="equipe1">
-                    <th mat-header-cell *matHeaderCellDef> equipe 1 </th>
-                    <td mat-cell *matCellDef="let element">
-                        <p class="mb-0 fw-medium">{{element.equipe1.nomEquipe}}</p>
+                    <th mat-header-cell *matHeaderCellDef> Equipe 1 </th>
+                    <td mat-cell *matCellDef="let match">
+                        <p class="mb-0 fw-medium">{{ match.equipe1 ? match.equipe1.nomEquipe : '' }}</p>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="equipe2">
-                    <th mat-header-cell *matHeaderCellDef> equipe 2 </th>
-                    <td mat-cell *matCellDef="let element">
-                        <p class="mb-0 fw-medium">{{element.equipe2.nomEquipe}}</p>
+                    <th mat-header-cell *matHeaderCellDef> Equipe 2 </th>
+                    <td mat-cell *matCellDef="let match">
+                        <p class="mb-0 fw-medium">{{ match.equipe2 ? match.equipe2.nomEquipe : '' }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="player1">
+                    <th mat-header-cell *matHeaderCellDef> Joueur 1 </th>
+                    <td mat-cell *matCellDef="let match">
+                        <p class="mb-0 fw-medium">
+                            {{ match.player1.nomUser }}
+                        </p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="player2">
+                    <th mat-header-cell *matHeaderCellDef> Joueur 2 </th>
+                    <td mat-cell *matCellDef="let match">
+                        <p class="mb-0 fw-medium">
+                            {{ match.player2.nomUser }}
+                        </p>
                     </td>
                 </ng-container>
 
@@ -46,7 +67,7 @@
                         <button mat-icon-button matTooltip="Edit">
                             <mat-icon aria-label="Edit">edit</mat-icon>
                         </button>
-                        <button mat-icon-button matTooltip="Delete">
+                        <button mat-icon-button matTooltip="Delete" (click)="deleteMatch(element.idMatch)">
                             <mat-icon aria-label="Delete">delete</mat-icon>
                         </button>
                     </td>

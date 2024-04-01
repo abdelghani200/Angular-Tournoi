@@ -1,41 +1,43 @@
 import { Injectable } from '@angular/core';
-import Swal, { SweetAlertIcon } from 'sweetalert2';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SweetAlertService {
+export class SweetalertService {
 
   constructor() { }
 
-  showAlert(title: string, message: string, icon: SweetAlertIcon = 'success') {
-    return Swal.fire(title, message, icon);
+  showAlert(options: SweetAlertOptions): Promise<any> {
+    return Swal.fire(options);
   }
 
-  showSuccess(title: string, message: string) {
-    return this.showAlert(title, message, 'success');
+  showSuccess(message: string, title: string = 'Success'): Promise<any> {
+    return this.showAlert({
+      title: title,
+      text: message,
+      icon: 'success'
+    });
   }
 
-  showError(title: string, message: string) {
-    return this.showAlert(title, message, 'error');
+  showError(message: string, title: string = 'Error'): Promise<any> {
+    return this.showAlert({
+      title: title,
+      text: message,
+      icon: 'error'
+    });
   }
 
-  showUpdateSuccess() {
-    return this.showSuccess('Update Successful', 'The item has been updated successfully.');
-  }
-
-  showDeleteSuccess() {
-    return this.showSuccess('Delete Successful', 'The item has been deleted successfully.');
-  }
-
-  showDeleteConfirmation() {
-    return Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
+  showConfirmation(message: string, title: string = 'Confirmation'): Promise<any> {
+    return this.showAlert({
+      title: title,
+      text: message,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel'
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
     });
   }
 }

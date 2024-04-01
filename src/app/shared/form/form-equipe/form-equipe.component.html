@@ -4,7 +4,7 @@
         <form [formGroup]="equipeForm" (ngSubmit)="onSubmit()">
             <mat-form-field class="w-100 fs-16" appearance="outline">
                 <mat-label>Equipe Name</mat-label>
-                <input matInput formControlName="nomEquipe" type="text" placeholder="Entrer Name">
+                <input matInput formControlName="nomEquipe" type="text" placeholder="Enter Name">
             </mat-form-field>
 
             <mat-form-field class="w-100 fs-16" appearance="outline">
@@ -15,7 +15,11 @@
                 </mat-select>
             </mat-form-field>
 
-            <button mat-button class="btn btn-info fw-normal" type="submit">Submit</button>
+            <button mat-button [ngStyle]="{'font-weight': 'bold'}" (click)="onSubmit()">
+                {{ operation === 'add' ? 'Add Equipe' : 'Update Equipe' }}
+            </button>
+
         </form>
+
     </div>
 </div>

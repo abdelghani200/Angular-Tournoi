@@ -1,6 +1,10 @@
 <mat-card class="w-100">
     <mat-card-content>
-        <h4 class="mb-56"> Players List</h4>
+        <div class="d-flex justify-content-between align-items-center mb-56">
+            <h4> Players List</h4>
+            <div class="ml-auto" style="margin-right: 80%;"></div>
+            <button mat-button [ngStyle]="{'font-weight': 'bold'}" (click)="openEquipeFormDialog()">Add Player</button>
+        </div>
         <div class="table-responsive">
             <table mat-table [dataSource]="dataSource$" class="text-nowrap w-100">
                 <ng-container matColumnDef="idUser">
@@ -45,9 +49,9 @@
                         <button mat-icon-button matTooltip="Delete">
                             <mat-icon aria-label="Delete">delete</mat-icon>
                         </button>
-                        <button mat-icon-button matTooltip="Add" (click)="openPlayerListPopup()">
+                        <!-- <button mat-icon-button matTooltip="Add" (click)="openPlayerListPopup()">
                             <mat-icon aria-label="Add">add</mat-icon>
-                        </button>
+                        </button> -->
                     </td>
                 </ng-container>
 

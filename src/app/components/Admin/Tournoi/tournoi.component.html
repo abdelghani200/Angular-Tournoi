@@ -44,13 +44,13 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef [ngStyle]="{ 'text-align': 'center' }"> Actions </th>
                     <td mat-cell *matCellDef="let element" [ngStyle]="{ 'text-align': 'center' }">
-                        <button mat-icon-button matTooltip="Edit">
+                        <button mat-icon-button matTooltip="Edit" (click)="editTournoi(element.id)">
                             <mat-icon aria-label="Edit">edit</mat-icon>
                         </button>
-                        <button mat-icon-button matTooltip="Delete">
+                        <button mat-icon-button matTooltip="Delete" (click)="deleteTournoi(element.id)">
                             <mat-icon aria-label="Delete">delete</mat-icon>
                         </button>
-                        <button mat-icon-button matTooltip="Add" (click)="openTournoiFormDialog(element.id)">
+                        <button mat-icon-button matTooltip="Add" (click)="openTournoiFormDialog(element.id, element.type)">
                             <mat-icon aria-label="Add">add</mat-icon>
                         </button>
                     </td>

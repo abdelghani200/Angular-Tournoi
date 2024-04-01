@@ -36,4 +36,8 @@ export class PlayersComponent implements OnInit{
     });
   }
 
+  openEquipeFormDialog(){
+    
+  }
+
 }

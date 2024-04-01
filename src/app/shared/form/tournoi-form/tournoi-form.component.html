@@ -12,7 +12,7 @@
                 <mat-select formControlName="type" placeholder="Select Type">
                     <mat-option value="FootBall">FootBall</mat-option>
                     <mat-option value="BabyFoot">BabyFoot</mat-option>
-                    <mat-option value="BascketBall">BasketBall</mat-option>
+                    <mat-option value="BasketBall">BasketBall</mat-option>
                     <mat-option value="Fifa">Fifa</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -27,8 +27,9 @@
                 <input matInput formControlName="dateFin" type="date" placeholder="Select End Date">
             </mat-form-field>
 
-            <button mat-button class="btn btn-info fw-normal" type="submit">Submit</button>
-            <button mat-button class="btn btn-secondary" (click)="onBack()">Back</button>
+            <button mat-button [ngStyle]="{'font-weight': 'bold'}" (click)="onSubmit()">
+                {{ operation === 'add' ? 'Add Tournoi' : 'Update Tournoi' }}
+            </button>
         </form>
     </div>
 </div>

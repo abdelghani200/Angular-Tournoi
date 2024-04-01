@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Tournoi } from 'src/app/models/Tournoi';
 import * as fromTournoi from '../../../store/selectors/tournois.selectors';
 import * as TournoiActions from '../../../store/actions/tournois.actions';
+import * as MatourActions from '../../../store/actions/maTour.actions';
 import * as MatchActions from '../../../store/actions/match.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { MatchComponent } from '../../Admin/Match/match.component';
@@ -46,8 +47,11 @@ export class HomeComponent implements OnInit {
 
   handleEventClick(eventClickArg: EventClickArg): void {
     console.log("Événement cliqué :", eventClickArg);
-    const tournoiId = eventClickArg.event.id;
-    this.store.dispatch(MatchActions.loadMatchs());
-    this.dialog.open(ListMatchComponent);
+    const tournoiId = parseInt(eventClickArg.event.id);
+    console.log(tournoiId)
+    this.store.dispatch(MatourActions.loadMatchesByTournoiId({ tournoiId }));
+    this.dialog.open(ListMatchComponent, {
+      data: { tournoiId: tournoiId }
+    });
   }
 }

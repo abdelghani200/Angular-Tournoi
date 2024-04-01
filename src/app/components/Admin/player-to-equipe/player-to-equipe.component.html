@@ -1,18 +1,21 @@
 <mat-dialog-content>
-    <div class="search-container">
-        <label for="playerSearch">Search Players: </label>
-        <mat-form-field appearance="fill">
-            <mat-label>Select Players</mat-label>
-            <input matInput placeholder="Search players" [(ngModel)]="playerSearchText" (input)="filterPlayers()">
-        </mat-form-field>
-    </div>
+    <label for="playerSearch">Players To Tournoi: </label>
     <mat-form-field appearance="fill">
-        <mat-select [(ngModel)]="selectedPlayers" multiple>
+        <mat-select [(ngModel)]="selectedPlayers" placeholder="Select player" multiple>
             <mat-option *ngFor="let player of playerList" [value]="player.idUser">
                 {{ player.nomUser }} {{player.prenomUser}}
             </mat-option>
         </mat-select>
     </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-select placeholder="Select Tournoi" (selectionChange)="onTournoiSelectionChange($event)">
+            <mat-option *ngFor="let tournoi of tournoiList" [value]="tournoi.id">
+                {{ tournoi.type }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    
 </mat-dialog-content>
 
 <mat-dialog-actions>
