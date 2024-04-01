@@ -1,6 +1,6 @@
-export enum TypeTournoi{
-    FootBall,
-    BabyFoot,
-    Fifa,
-    BasketBall
+export enum TypeTournoi {
+    FootBall = "FootBall",
+    BabyFoot = "BabyFoot",
+    Fifa = "Fifa",
+    BasketBall = "BasketBall"
 }

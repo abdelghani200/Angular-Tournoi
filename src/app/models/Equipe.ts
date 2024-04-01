@@ -1,5 +1,6 @@
 export interface Equipe{
     idEquipe: number,
     nomEquipe: string;
-    members: number
+    members: number;
+    type: string
 }
