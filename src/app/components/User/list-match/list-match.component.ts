@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromMaTourh from '../../../store/selectors/maTour.selectors';
+import * as MatourActions from '../../../store/actions/maTour.actions';
+import { MatchDto } from 'src/app/models/MatchDto';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-list-match',
@@ -7,22 +15,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListMatchComponent implements OnInit {
 
-  matches: any[] = []; // Assurez-vous de remplacer any[] par le type réel de vos données de match
+  dataSource$!: Observable<MatchDto[]>;
 
-  constructor() { }
+  constructor(private store: Store, @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, private dialog: MatDialog) {
+
+  }
 
   ngOnInit(): void {
-    // Ici, vous pouvez charger vos données de match depuis une API ou un service
-    this.loadMatches();
+    const tournoiId = this.data.tournoiId;
+    console.log(this.data);
+    this.store.dispatch(MatourActions.loadMatchesByTournoiId({ tournoiId }));
+
+    this.dataSource$ = this.store.select(fromMaTourh.getMatchs);
+    this.dataSource$.subscribe(matches => {
+      console.log('Matches:', matches);
+    });
   }
 
-  loadMatches(): void {
-    // Exemple de chargement de données fictives
-    this.matches = [
-      { team1: 'Équipe A', team2: 'Équipe B', date: '2024-02-16', stadium: 'Stade XYZ' },
-      { team1: 'Équipe C', team2: 'Équipe D', date: '2024-02-18', stadium: 'Stade ABC' },
-      // Ajoutez d'autres matchs au besoin
-    ];
-  }
+
 
 }

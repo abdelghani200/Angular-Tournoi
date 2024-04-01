@@ -1,0 +1,71 @@
+<div class="container mx-auto mt-16">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800">Matches</h2>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div>
+                <label for="matchDate" class="sr-only">Filtrer par date de match</label>
+                <select id="matchDate" class="border border-gray-300 rounded px-4 py-2" [(ngModel)]="selectedDate"
+                    (change)="onDateFilterChange($event)">
+                    <option value="">Tous les matches</option>
+                    <option value="passed">Passés</option>
+                    <option value="upcoming">À venir</option>
+                    <option value="closed">Fermés</option>
+                </select>
+            </div>
+            <div>
+                <label for="statusType" class="sr-only">Filtrer par type de tournoi</label>
+                <select id="statusType" class="border border-gray-300 rounded px-4 py-2" [(ngModel)]="selectedType"
+                    (change)="filterMatchesByType(selectedType)">
+                    <option value="">Tous les types de tournois</option>
+                    <option value="FootBall">FootBall</option>
+                    <option value="BabyFoot">BabyFoot</option>
+                    <option value="Fifa">Fifa</option>
+                    <option value="BasketBall">BasketBall</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <ng-container *ngIf="filteredMatches$ | async as matches">
+            <ng-container *ngIf="matches.length > 0; else loading">
+                <div *ngFor="let match of filteredMatches$ | async" class="p-2 sm:p-4">
+                    <a [routerLink]="['/user/match-details', match.idMatch]">
+                        <div
+                            class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl bg-blue-200 transition duration-300 ease-in-out transform hover:-translate-y-1">
+                            <div class="px-6 py-4">
+                                <ng-container *ngIf="isPlayerMatch(match); else teamMatch">
+                                    <div class="font-semibold text-xl mb-2">{{ match.player1.nomUser }} vs {{
+                                        match.player2.nomUser }}</div>
+                                </ng-container>
+                                <ng-template #teamMatch>
+                                    <div class="font-semibold text-xl mb-2">{{ match.equipe2.nomEquipe }} vs {{
+                                        match.equipe1.nomEquipe }}</div>
+                                </ng-template>
+                                <p class="text-base mb-2">Date: {{ match.dateMatch }}</p>
+                                <p class="text-base mb-2">Heure: {{ match.heureMatch }}</p>
+                                <p class="text-base mb-2">Résultat: {{ match.scoreEquipe1 }} - {{ match.scoreEquipe2 }}
+                                </p>
+                                <p class="text-base">Type: {{ match.tournoi.type }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #loading>
+            <div class="p-2 sm:p-4">
+                <div class="rounded-lg overflow-hidden shadow-lg bg-gray-200 animate-pulse"
+                    style="width: 300px; height: 250px;">
+                    <div class="px-6 py-4">
+                        <div class="h-6 bg-gray-300 rounded mb-2"></div>
+                        <div class="h-4 bg-gray-300 rounded mb-2"></div>
+                        <div class="h-4 bg-gray-300 rounded"></div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
