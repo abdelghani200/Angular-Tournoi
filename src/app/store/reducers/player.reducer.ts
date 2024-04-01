@@ -1,12 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import * as PlayersActions from '../actions/player.actions';
 import { Player } from 'src/app/models/Player';
+import { EquipeWithPlayer } from 'src/app/models/EquipeWithPlayer';
 
 export interface PlayerState {
     players: Player[];
     loading: boolean;
     error: any;
 }
+
 
 export const initialState: PlayerState = {
     players: [],
@@ -42,5 +44,25 @@ export const playerReducer = createReducer(
         loading: false
     })),
     on(PlayersActions.deletePlayerFailure, (state, { error }) => ({ ...state, error, loading: false })),
+
+    on(PlayersActions.getPlayersOfTwoEquipes, state => ({
+        ...state,
+        loading: true,
+        error: null
+    })),
+    on(PlayersActions.getPlayersOfEquipeSuccess, (state, { players }) => ({
+        ...state,
+        players: players,
+        loading: false,
+        error: null
+    })),
+    on(PlayersActions.getPlayersOfEquipeFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error
+    })),
+
+
+    
 
 );

@@ -16,5 +16,33 @@ export const initialState: PlayerToEquipeState = {
 
 export const PlayerToEquipeReducer = createReducer(
     initialState,
-    on(PlayerToEquipeActions.addPlayerToEquipe, (state, { playerToEquipe }) => ({ ...state, playerToEquipes: [...state.PlayerToEquipes, playerToEquipe] })),
+    on(PlayerToEquipeActions.addPlayerToEquipe, (state, { playerToEquipe }) =>
+        ({ ...state, playerToEquipes: [...state.PlayerToEquipes, playerToEquipe] })),
+
+    on(PlayerToEquipeActions.addPlayerToEquipeFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error
+    })),
+    on(PlayerToEquipeActions.addPlayerToEquipeSuccess, (state, { playerToEquipe }) => ({
+        ...state,
+        loading: false,
+        error: null
+    })),
+    on(PlayerToEquipeActions.getPlayersOfEquipe, (state) => ({
+        ...state,
+        loading: true,
+        error: null
+    })),
+    on(PlayerToEquipeActions.getPlayersOfEquipeSuccess, (state, { playersofEquipe }) => ({
+        ...state,
+        id: playersofEquipe,
+        loading: false,
+        error: null
+    })),
+    on(PlayerToEquipeActions.getPlayersOfEquipeFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error
+    }))
 );

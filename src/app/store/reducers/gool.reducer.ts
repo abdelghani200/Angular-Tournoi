@@ -36,4 +36,9 @@ export const goolReducer = createReducer(
     on(GoolActions.searchGools, (state, { playerName, equipeName, tournoiName }) => {
         return state;
     }),
+
+    on(GoolActions.addGoal, state => ({ ...state, loading: true, error: null })),
+    on(GoolActions.addGoalSuccess, (state, { addedGool }) => ({ ...state, equipes: [...state.gools, addedGool], loading: false })),
+    on(GoolActions.addGoalFailure, (state, { error }) => ({ ...state, error, loading: false })),
+
 );

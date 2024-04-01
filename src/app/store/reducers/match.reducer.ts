@@ -30,7 +30,7 @@ export const matchReducer = createReducer(
 
     on(MatchActions.updateMatch, state => ({ ...state, loading: true, error: null })),
     on(MatchActions.updateMatchSuccess, (state, { updatedMatch }) => {
-        const updatedMatchs = state.matchs.map(match => match.id === updatedMatch.id ? updatedMatch : match);
+        const updatedMatchs = state.matchs.map(match => match.idMatch === updatedMatch.idMatch ? updatedMatch : match);
         return { ...state, matchs: updatedMatchs, loading: false };
     }),
     on(MatchActions.updateMatchFailure, (state, { error }) => ({ ...state, error, loading: false })),
@@ -38,10 +38,9 @@ export const matchReducer = createReducer(
     on(MatchActions.deleteMatch, state => ({ ...state, loading: true, error: null })),
     on(MatchActions.deleteMatchSuccess, (state, { deletedMatchId }) => ({
         ...state,
-        matchs: state.matchs.filter(match => match.id !== deletedMatchId),
+        matchs: state.matchs.filter(match => match.idMatch !== deletedMatchId),
         loading: false
     })),
     on(MatchActions.deleteMatchFailure, (state, { error }) => ({ ...state, error, loading: false })),
-
 
 );
