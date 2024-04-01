@@ -3,6 +3,7 @@ import * as GoolActions from '../../store/actions/gool.actions';
 import { catchError, map, mergeMap, of, tap } from "rxjs";
 import { Injectable } from "@angular/core";
 import { GoolService } from "src/app/services/gools/gool.service";
+import { SweetalertService } from "src/app/services/sweetAlert/sweet-alert.service";
 
 @Injectable()
 export class GoolEffects {
@@ -49,11 +50,27 @@ export class GoolEffects {
         )
     ));
 
+    addGoal$ = createEffect(() => this.actions$.pipe(
+        ofType(GoolActions.addGoal),
+        mergeMap((action) => {
+            return this.goolService.addGool(action.goal).pipe(
+                tap(() => this.sweetalertService.showSuccess('Goal ajouté avec succès')),
+                map(() => {
+                    return GoolActions.loadGools()
+                }),
+                catchError((error) => {
+                    this.sweetalertService.showError('Erreur lors de l\'ajout du goal');
+                    return of(GoolActions.loadGoolFailure({ error }));
+                })
+            )
+        })
+    ))
 
 
     constructor(
         private actions$: Actions,
-        private goolService: GoolService
+        private goolService: GoolService,
+        private sweetalertService: SweetalertService
     ) { }
 
 }

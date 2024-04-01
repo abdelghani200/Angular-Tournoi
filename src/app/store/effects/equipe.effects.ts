@@ -3,7 +3,7 @@ import * as EquipeActions from '../../store/actions/equipe.actions';
 import { catchError, map, mergeMap, of, tap } from "rxjs";
 import { EquipeService } from "src/app/services/equipe/equipe.service";
 import { Injectable } from "@angular/core";
-import { SweetAlertService } from "src/app/services/sweetAlert/sweet-alert.service";
+import { SweetalertService } from "src/app/services/sweetAlert/sweet-alert.service";
 
 @Injectable()
 export class EquipeEffects {
@@ -22,12 +22,18 @@ export class EquipeEffects {
 
     addEquipe$ = createEffect(() => this.actions$.pipe(
         ofType(EquipeActions.addEquipe),
-        mergeMap(({ equipe }) => this.equipeService.addEquipe(equipe).pipe(
-            map(addedEquipes => addedEquipes[0]),
-            tap(() => this.sweetAlertService.showSuccess('Success', 'Level added successfully')),
-            map(addedEquipe => EquipeActions.addEquipeSuccess({ addedEquipe })),
-            catchError(error => of(EquipeActions.addEquipeFailure({ error })))
-        ))
+        mergeMap((action) => {
+            return this.equipeService.addEquipe(action.equipe).pipe(
+                tap(() => this.sweetalertService.showSuccess('Equipe ajouté avec succès')),
+                map(() => {
+                    return EquipeActions.loadEquipes()
+                }),
+                catchError((error) => {
+                    this.sweetalertService.showError('Erreur lors de l\'ajout du equipe');
+                    return of(EquipeActions.loadEquipesFailure({ error }));
+                })
+            );
+        })
     ));
 
     updateEquipe$ = createEffect(() => this.actions$.pipe(
@@ -36,6 +42,10 @@ export class EquipeEffects {
             .pipe(
                 map(updatedEquipes => updatedEquipes[0]),
                 map(updatedEquipe => EquipeActions.updateEquipeSuccess({ updatedEquipe })),
+                tap(() => this.sweetalertService.showSuccess('Equipe modifeir avec succès')),
+                map(() => {
+                    return EquipeActions.loadEquipes()
+                }),
                 catchError(error => of(EquipeActions.updateEquipeFailure({ error })))
             )
         )
@@ -45,6 +55,8 @@ export class EquipeEffects {
         ofType(EquipeActions.deleteEquipe),
         mergeMap(({ equipeId }) => this.equipeService.deleteEquipe(equipeId)
             .pipe(
+                tap(() => this.sweetalertService.showSuccess('Equipe supprimé avec succès')),
+                    map(() => EquipeActions.loadEquipes()),
                 map(() => EquipeActions.deleteEquipeSuccess({ deletedEquipeId: equipeId })),
                 catchError(error => of(EquipeActions.deleteEquipeFailure({ error })))
             )
@@ -55,7 +67,7 @@ export class EquipeEffects {
     constructor(
         private actions$: Actions,
         private equipeService: EquipeService,
-        private sweetAlertService: SweetAlertService
+        private sweetalertService: SweetalertService
     ) { }
 
 }
