@@ -17,3 +17,20 @@ export const updatePlayerFailure = createAction('[Player] Update Player Failure'
 export const deletePlayer = createAction('[Player] Delete Player', props<{ playerId: number }>());
 export const deletePlayerSuccess = createAction('[Player] Delete Player Success', props<{ deletedPlayerId: number }>());
 export const deletePlayerFailure = createAction('[Player] Delete Player Failure', props<{ error: any }>());
+
+
+
+export const getPlayersOfTwoEquipes = createAction(
+    '[PlayerToEquipe] Get Players Of Two Equipes',
+    props<{ equipeId1: number, equipeId2: number }>()
+);
+
+export const getPlayersOfEquipeSuccess = createAction(
+    '[PlayerToEquipe] Get Players Of Equipe Success',
+    props<{ players: Player[] }>()
+);
+
+export const getPlayersOfEquipeFailure = createAction(
+    '[PlayerToEquipe] Get Players Of Equipe Failure',
+    props<{ error: any }>()
+);

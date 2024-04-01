@@ -16,3 +16,8 @@ export const updateEquipeFailure = createAction('[Equipe] Update Equipe Failure'
 export const deleteEquipe = createAction('[Equipe] Delete Equipe', props<{ equipeId: number }>());
 export const deleteEquipeSuccess = createAction('[Equipe] Delete Equipe Success', props<{ deletedEquipeId: number }>());
 export const deleteEquipeFailure = createAction('[Equipe] Delete Equipe Failure', props<{ error: any }>());
+
+export const editEquipe = createAction(
+    '[Equipe] Edit Equipe',
+    props<{ equipeData: any }>()
+);

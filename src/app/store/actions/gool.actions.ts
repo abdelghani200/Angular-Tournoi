@@ -6,9 +6,9 @@ export const loadGools = createAction('[Gool] Load Gools');
 export const loadGoolSuccess = createAction('[Gool] Load Gools Success', props<{ gools: Gool[] }>());
 export const loadGoolFailure = createAction('[Gool] Load Gools Failure', props<{ error: any }>());
 
-export const addMatch = createAction('[Match] Add Match', props<{ match: Match }>());
-export const addMatchSuccess = createAction('[Match] Add Match Success', props<{ addedMatch: Match }>());
-export const addMatchFailure = createAction('[Match] Add Match Failure', props<{ error: any }>());
+export const addGoal = createAction('[Goal] Add Goal', props<{ goal: Gool }>());
+export const addGoalSuccess = createAction('[Goal] Add Goal Success', props<{ addedGool: Gool }>());
+export const addGoalFailure = createAction('[Goal] Add Goal Failure', props<{ error: any }>());
 
 export const updateMatch = createAction('[Match] Update Match', props<{ match: Match }>());
 export const updateMatchSuccess = createAction('[Match] Update Match Success', props<{ updatedMatch: Match }>());
