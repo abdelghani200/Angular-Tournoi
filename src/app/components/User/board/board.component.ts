@@ -12,7 +12,7 @@ export class BoardComponent implements OnInit {
 
   dataSource$ = this.store.select(fromStats.getStatsEquipes);
   sortData: any[] = [];
-
+  uniqueTeams: any[] = [];
   selectedType: string = ''
 
 
@@ -37,15 +37,17 @@ export class BoardComponent implements OnInit {
     const type = (event.target as HTMLSelectElement).value;
     this.selectedType = type;
     this.dataSource$.subscribe(data => {
-      if (type === '') {
-        this.sortData = data.slice().sort((a, b) => b.points - a.points);
-      } else {
-        this.sortData = data.filter(item => item.tournoi.type === type).slice().sort((a, b) => b.points - a.points);
+      if (typeof type === 'string') {
+        if (type === '') {
+          this.sortData = data.slice().sort((a, b) => b.points - a.points);
+        } else {
+          this.sortData = data.filter(item => item.type === type).slice().sort((a, b) => b.points - a.points);
+        }
       }
     });
   }
   
-
+  
 
 
 }

@@ -1,4 +1,5 @@
 FROM node:18.16.0
+# le répertoire de travail
 WORKDIR /clientside
 COPY package*.json ./
 RUN npm install -g @angular/cli@16.2.10

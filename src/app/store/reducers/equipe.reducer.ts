@@ -40,3 +40,6 @@ export const equipeReducer = createReducer(
     on(EquipeActions.deleteEquipeFailure, (state, { error }) => ({ ...state, error, loading: false })),
 
 );
+
+
+// sont des fonctions pures responsables de la gestion des modifications de l'état de l'application en réponse aux actions déclenchées

@@ -20,7 +20,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class DetailsMatchComponent implements OnInit {
 
   match$!: Observable<Match | undefined>;
-  matchResult: any = {};
 
   comments$ = this.store.select(fromComment.getCommentaires);
 

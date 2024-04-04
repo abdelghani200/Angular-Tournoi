@@ -10,7 +10,7 @@ export const ApiUrls = {
     Gools_URL: 'http://localhost:8081/api/but',
     Login_URL: 'http://localhost:8081/api/auth/login',
     PlayersByEquipe_URL: 'http://localhost:8081/api/equipeWithPlayer',
-    StatsEquipe_URL: 'http://localhost:8081/api/equipe/stats',
+    StatsEquipe_URL: 'http://localhost:8081/api/match/equipe-stats',
     Statistics_URL: 'http://localhost:8081/statistics/summary',
     Commentaires_URL: 'http://localhost:8081/api/commentaires',
     Fifa_URl: 'http://localhost:8081/api/tournoi/fifa',

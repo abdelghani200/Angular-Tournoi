@@ -70,13 +70,14 @@
                 </mat-form-field>
             </ng-container>
 
-            <mat-form-field class="w-100 fs-16" appearance="outline">
-                <mat-label>Select Player</mat-label>
-                <mat-select formControlName="playerId" placeholder="Select Player">
-                    <mat-option *ngFor="let player of playersOfEquipe" [value]="player.player.idUser">{{
-                        player.player.nomUser }}</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <ng-container *ngIf="!selectedMatch || (selectedMatch && selectedMatch.tournoi.type !== 'Fifa')">
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Select Player</mat-label>
+                    <mat-select formControlName="playerId" placeholder="Select Player">
+                        <mat-option *ngFor="let player of playersOfEquipe" [value]="player.player.idUser">{{ player.player.nomUser }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
 
             <ng-container *ngIf="selectedMatch">
                 <mat-form-field class="w-100 fs-16" appearance="outline">

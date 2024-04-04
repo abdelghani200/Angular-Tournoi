@@ -4,6 +4,7 @@ import * as MatchActions from '../../store/actions/match.actions';
 import { catchError, map, mergeMap, of, tap } from "rxjs";
 import { Injectable } from "@angular/core";
 import { SweetalertService } from "src/app/services/sweetAlert/sweet-alert.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class MatchEffects {
@@ -26,13 +27,16 @@ export class MatchEffects {
                 map(addedMAtchs => addedMAtchs[0]),
                 map(addedMatch => MatchActions.addMatchSuccess({ addedMatch })),
                 tap(() => this.sweetalertService.showSuccess('Equipe ajouté avec succès')),
-                map(() => {
-                    return MatchActions.loadMatchs()
-                }),
-                catchError(error => of(MatchActions.addMatchFailure({ error })))
+                map(() => MatchActions.loadMatchs()),
+                catchError(error => {
+                    let errorMessage = 'Une erreur est survenue lors de l\'ajout du match';
+                    this.sweetalertService.showError(errorMessage);
+                    return this.sweetalertService.showError(errorMessage);
+                })
             )
         )
     ));
+
 
     updateMatch$ = createEffect(() => this.actions$.pipe(
         ofType(MatchActions.updateMatch),
@@ -55,7 +59,7 @@ export class MatchEffects {
         )
     ));
 
-    
+
     constructor(
         private actions$: Actions,
         private matchService: MatchService,

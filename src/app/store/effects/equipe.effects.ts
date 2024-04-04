@@ -36,6 +36,8 @@ export class EquipeEffects {
         })
     ));
 
+    // Gestion des opérations  Traitement des erreurs 
+
     updateEquipe$ = createEffect(() => this.actions$.pipe(
         ofType(EquipeActions.updateEquipe),
         mergeMap(({ equipe }) => this.equipeService.updateEquipe(equipe)

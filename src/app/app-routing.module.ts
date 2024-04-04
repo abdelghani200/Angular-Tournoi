@@ -19,6 +19,7 @@ import { BoardComponent } from './components/User/board/board.component';
 import { MtchComponent } from './components/User/mtch/mtch.component';
 import { AdminsComponent } from './components/Admin/admins/admins.component';
 import { AdminGuard } from './services/auth/guards/admin.guard';
+import { PlayerGuard } from './services/auth/guards/player.guard';
 
 
 
@@ -44,15 +45,15 @@ const routes: Routes = [
         children: [
           { path: "", redirectTo: "/admin/dashboard", pathMatch: "full" },
           { path: "dashboard", component: DashboardComponent },
-          { path: "tournoiListe", component: TournoiComponent },
-          { path: "matchListe", component: MatchComponent },
-          { path: "equipes", component: EquipeComponent },
-          { path: "commentaires", component: CommentaireComponent },
+          { path: "tournoiListe", component: TournoiComponent, canActivate: [AdminGuard]},
+          { path: "matchListe", component: MatchComponent, canActivate: [AdminGuard]},
+          { path: "equipes", component: EquipeComponent, canActivate: [AdminGuard] },
+          { path: "commentaires", component: CommentaireComponent, canActivate: [AdminGuard]},
           { path: 'form-tournoi', component: TournoiFormComponent },
           { path: "players", component: PlayersComponent , canActivate: [AdminGuard]},
           { path: "playerToEquipe", component: PlayerToEquipeComponent },
-          { path: "gools", component: GoolComponent },
-          { path: "admins", component: AdminsComponent}
+          { path: "gools", component: GoolComponent, canActivate: [AdminGuard]},
+          { path: "admins", component: AdminsComponent, canActivate: [AdminGuard]}
         ]
       },
       { path: "login", component: LoginComponent },

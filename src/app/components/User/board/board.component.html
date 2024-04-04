@@ -37,9 +37,6 @@
                                     nbMatchsPerdus
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left tracking-wider">
-                                    Type Equipe
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
                                     points
                                 </th>
                             </tr>
@@ -50,7 +47,7 @@
                                     {{ i + 1 }}
                                 </td>
                                 <td class="flex px-6 py-4 whitespace-nowrap">
-                                    {{ equipe.equipe.nomEquipe }}
+                                    {{ equipe.nomEquipe }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ equipe.nbMatchsJoues }}
@@ -60,9 +57,6 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ equipe.nbMatchsPerdus }}
-                                </td>
-                                <td class="flex px-6 py-4 whitespace-nowrap">
-                                    {{ equipe.equipe.type }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ equipe.points }}

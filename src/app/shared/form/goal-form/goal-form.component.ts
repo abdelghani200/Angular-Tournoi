@@ -92,7 +92,7 @@ export class GoalFormComponent implements OnInit {
   initForm(): void {
     this.goalForm = this.formBuilder.group({
       matchId: ['', Validators.required],
-      equipeId: ['', Validators.required],
+      equipeId: [''],
       playerId: ['', Validators.required],
       numberOfGoal: ['', Validators.required]
     })
