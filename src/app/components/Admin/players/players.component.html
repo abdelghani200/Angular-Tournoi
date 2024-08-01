@@ -1,0 +1,64 @@
+<mat-card class="w-100">
+    <mat-card-content>
+        <div class="d-flex justify-content-between align-items-center mb-56">
+            <h4> Players List</h4>
+            <div class="ml-auto" style="margin-right: 80%;"></div>
+            <button mat-button [ngStyle]="{'font-weight': 'bold'}" (click)="openEquipeFormDialog()">Add Player</button>
+        </div>
+        <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource$" class="text-nowrap w-100">
+                <ng-container matColumnDef="idUser">
+                    <th mat-header-cell *matHeaderCellDef> Player Id </th>
+                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.idUser}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nomUser">
+                    <th mat-header-cell *matHeaderCellDef> Player Name </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{ element.nomUser }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="prenomUser">
+                    <th mat-header-cell *matHeaderCellDef> Prenom </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.prenomUser }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.email }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.role }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{ 'text-align': 'center' }"> Actions </th>
+                    <td mat-cell *matCellDef="let element" [ngStyle]="{ 'text-align': 'center' }">
+                        <button mat-icon-button matTooltip="Edit">
+                            <mat-icon aria-label="Edit">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Delete">
+                            <mat-icon aria-label="Delete">delete</mat-icon>
+                        </button>
+                        <!-- <button mat-icon-button matTooltip="Add" (click)="openPlayerListPopup()">
+                            <mat-icon aria-label="Add">add</mat-icon>
+                        </button> -->
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>

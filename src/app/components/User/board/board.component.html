@@ -1,0 +1,71 @@
+<div class="flex flex-col w-screen min-h-screen py-10 ">
+    <div class="flex items-center justify-between mb-8 mx-auto w-[90%]">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800">Table de remplacement</h2>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div>
+                <label for="statusType" class="sr-only">Filtrer par type de tournoi</label>
+                <select id="statusType" class="border border-gray-300 rounded px-4 py-2" (change)="filterByType($event)">
+                    <option value="FootBall">FootBall</option>
+                    <option value="BabyFoot">BabyFoot</option>
+                    <option value="Fifa">Fifa</option>
+                    <option value="BasketBall">BasketBall</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <h1 class="text-lg text-gray-400 font-medium"></h1>
+    <div class="flex flex-col justify-center mt-6 mx-auto w-[90%]">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden sm:rounded-lg">
+                    <table class="min-w-full text-sm text-gray-400">
+                        <thead class="bg-gray-800 text-xs uppercase font-medium">
+                            <tr>
+                                <th></th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    Equipe
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    nbMatchsJoue
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    nbMatchsGagnes
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    nbMatchsPerdus
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    points
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-800">
+                            <tr *ngFor="let equipe of sortData; let i=index" class="bg-black bg-opacity-20">
+                                <td class="pl-4">
+                                    {{ i + 1 }}
+                                </td>
+                                <td class="flex px-6 py-4 whitespace-nowrap">
+                                    {{ equipe.nomEquipe }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ equipe.nbMatchsJoues }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ equipe.nbMatchsGagnes }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ equipe.nbMatchsPerdus }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ equipe.points }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

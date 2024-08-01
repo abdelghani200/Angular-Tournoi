@@ -1,0 +1,99 @@
+<!-- <div class="card">
+    <div class="card-body">
+        <h4 class="mb-32">Goal Form</h4>
+        <form [formGroup]="goalForm">
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label> number Of Goal</mat-label>
+                <input matInput formControlName="numberOfGoal" type="text" placeholder="Enter numberOfGoal">
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Select Match</mat-label>
+                <mat-select formControlName="matchId" placeholder="Select Equipe">
+                    <mat-option *ngFor="let match of matchList$ | async" [value]="match.idMatch">{{ match.dateMatch
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Select Equipe</mat-label>
+                <mat-select formControlName="equipeId" placeholder="Select Equipe" (selectionChange)="onEquipeSelectionChange($event.value)">
+                    <mat-option *ngFor="let equipe of filteredEquipeList$ | async" [value]="equipe.idEquipe">{{ equipe.nomEquipe }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Select Player</mat-label>
+                <mat-select formControlName="playerId" placeholder="Select Player">
+                    <mat-option *ngFor="let player of playersOfEquipe" [value]="player.player.idUser">{{ player.player.nomUser }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+
+            <button mat-button [ngStyle]="{'font-weight': 'bold'}" (click)="onSubmit()">
+                {{ operation === 'add' ? 'Add Goal' : 'Update Goal' }}
+            </button>
+
+        </form>
+
+    </div>
+</div> -->
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="mb-32">Goal Form</h4>
+        <form [formGroup]="goalForm">
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Number Of Goal</mat-label>
+                <input matInput formControlName="numberOfGoal" type="text" placeholder="Enter number of goals">
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Select Match</mat-label>
+                <mat-select formControlName="matchId" placeholder="Select Match">
+                    <mat-option *ngFor="let match of matchList$ | async" [value]="match.idMatch">{{ match.dateMatch
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <ng-container *ngIf="!selectedMatch">
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Select Equipe</mat-label>
+                    <mat-select formControlName="equipeId" placeholder="Select Equipe"
+                        (selectionChange)="onEquipeSelectionChange($event.value)">
+                        <mat-option *ngFor="let equipe of filteredEquipeList$ | async" [value]="equipe.idEquipe">{{
+                            equipe.nomEquipe }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="!selectedMatch || (selectedMatch && selectedMatch.tournoi.type !== 'Fifa')">
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Select Player</mat-label>
+                    <mat-select formControlName="playerId" placeholder="Select Player">
+                        <mat-option *ngFor="let player of playersOfEquipe" [value]="player.player.idUser">{{ player.player.nomUser }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="selectedMatch">
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Select Player</mat-label>
+                    <mat-select formControlName="playerId" placeholder="Select Player">
+                        <mat-option *ngFor="let player of [selectedMatch.player1, selectedMatch.player2]"
+                            [value]="player?.idUser">{{ player?.nomUser }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
+
+            <button mat-button [ngStyle]="{'font-weight': 'bold'}" (click)="onSubmit()">
+                {{ operation === 'add' ? 'Add Goal' : 'Update Goal' }}
+            </button>
+
+        </form>
+
+    </div>
+</div>

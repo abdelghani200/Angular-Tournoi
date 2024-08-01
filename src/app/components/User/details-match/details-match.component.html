@@ -1,0 +1,53 @@
+<div class="container mx-auto mt-8">
+    <div class="w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <h2 class="text-3xl font-bold text-center text-gray-800 py-4 bg-gray-200">Détails du match</h2>
+
+        <div class="p-6">
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Équipe 1</h3>
+                    <ul>
+                        <ng-container *ngIf="match$ | async as match">
+                            <ng-container *ngIf="match.tournoi.type === 'Fifa'">
+                                <li>{{ match.player1.nomUser }}</li>
+                            </ng-container>
+                            <ng-container *ngIf="match.tournoi.type !== 'Fifa'">
+                                <li *ngFor="let player of equipe1Players" class="mb-2">{{ player.player?.nomUser }} {{ player.player?.prenomUser }}</li>
+                            </ng-container>
+                        </ng-container>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Équipe 2</h3>
+                    <ul>
+                        <ng-container *ngIf="match$ | async as match">
+                            <ng-container *ngIf="match.tournoi.type === 'Fifa'">
+                                <li>{{ match.player2.nomUser }}</li>
+                            </ng-container>
+                            <ng-container *ngIf="match.tournoi.type !== 'Fifa'">
+                                <li *ngFor="let player of equipe2Players" class="mb-2">{{ player.player?.nomUser }} {{ player.player?.prenomUser }}</li>
+                            </ng-container>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                <textarea class="w-full h-24 border border-gray-300 rounded p-2 mb-2" [(ngModel)]="commentInput"
+                    placeholder="Ajouter un commentaire"></textarea>
+                <button (click)="addComment()"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Commenter</button>
+                <div class="border-t border-gray-300 pt-4" *ngFor="let comment of comments$ | async">
+                    <div class="bg-gray-100 rounded-lg p-4 mb-4" *ngIf="comment.valide == true">
+                        <p class="text-gray-800" id="comment">{{ comment.contenu }}</p>
+                        <div class="flex justify-between mt-2">
+                            <span class="text-gray-600 bg-green-500" >{{ comment.user.nomUser }}</span>
+                            <span class="text-gray-600">{{ comment.date }}  {{ comment.heure }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

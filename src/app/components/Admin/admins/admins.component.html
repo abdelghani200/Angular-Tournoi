@@ -1,0 +1,71 @@
+<mat-card class="w-100">
+    <mat-card-content>
+        <h4> Admin List</h4>
+        <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource$" class="text-nowrap w-100">
+                <ng-container matColumnDef="idUser">
+                    <th mat-header-cell *matHeaderCellDef> Id </th>
+                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.idUser}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nomUser">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{ element.nomUser }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="prenomUser">
+                    <th mat-header-cell *matHeaderCellDef> Prenom </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.prenomUser }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.email }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="adress">
+                    <th mat-header-cell *matHeaderCellDef> Adress </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.adress }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="phone">
+                    <th mat-header-cell *matHeaderCellDef> Telephone </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.phone }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p class="mb-0 fw-medium">{{element.role }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{ 'text-align': 'center' }"> Actions </th>
+                    <td mat-cell *matCellDef="let element" [ngStyle]="{ 'text-align': 'center' }">
+                        <button mat-icon-button matTooltip="Edit">
+                            <mat-icon aria-label="Edit">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Delete">
+                            <mat-icon aria-label="Delete">delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="mb-32">Match Form</h4>
+        <form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Date</mat-label>
+                <input matInput formControlName="dateMatch" type="date" placeholder="Select Date">
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Start Date</mat-label>
+                <input matInput formControlName="heureMatch" type="time" placeholder="Select heure">
+            </mat-form-field>
+
+            <!-- <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>End Date</mat-label>
+                <input matInput formControlName="dateFin" type="text" placeholder="Select End Date">
+            </mat-form-field> -->
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Select Tournoi</mat-label>
+                <mat-select formControlName="tournoiId" (selectionChange)="onTournoiSelectionChange($event.value)"
+                            placeholder="Select Type Tournoi">
+                    <mat-option *ngFor="let tournoi of tournois$ | async" [value]="tournoi.id">{{ tournoi.type }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div *ngIf="!showPlayerFields">
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Select Equipe</mat-label>
+                    <mat-select formControlName="equipe1Id" placeholder="Select Equipe">
+                        <mat-option *ngFor="let equipe of equipes$ | async" [value]="equipe.idEquipe">{{
+                            equipe.nomEquipe
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Select Equipe</mat-label>
+                    <mat-select formControlName="equipe2Id" placeholder="Select Equipe">
+                        <mat-option *ngFor="let equipe of equipes$ | async" [value]="equipe.idEquipe">{{
+                            equipe.nomEquipe
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="showPlayerFields">
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Select Player</mat-label>
+                    <mat-select formControlName="player1Id" placeholder="Select Player">
+                        <mat-option *ngFor="let player of players$ | async" [value]="player.idUser">{{
+                            player.nomUser
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Select Player</mat-label>
+                    <mat-select formControlName="player2Id" placeholder="Select Player">
+                        <mat-option *ngFor="let player of players$ | async" [value]="player.idUser">{{
+                            player.nomUser
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <button mat-button class="btn btn-info fw-normal" type="submit">Submit</button>
+            <button mat-button class="btn btn-secondary" (click)="onBack()">Back</button>
+        </form>
+    </div>
+</div>
